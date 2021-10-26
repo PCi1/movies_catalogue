@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    {% extends "index.html" %}
+<body>
+    {% block content %}
+        <div class='text-center col-lg12'>
+            <h1 class='text-center mt-5'> Witaj w mojej bibliotece filmów </h1>
+            <p class='text-center lead' > Znajdziesz tutaj tylko najlepsze tytuły </p>
+        </div>
+    
+    <div class='row'>
+        {% for list_name in all_lists %}
+            <a href='{{ url_for("homepage", list_type=list_name) }}' class='btn btn-outline-info' role='button' data-toggle='button' aria-pressed="true"> {{ list_name|replace("_", " ")|capitalize }}</a> <p>&nbsp;</p>
+        {% endfor %}
+    </div>
+    <br>
+    <div class='row'>
+    {% for movie in movies %}
+        <div class='col-lg-3 col-md-6 mb-4'>
+            <div class='card h-100'>
+                <div class='card-body'>
+                    <h4 class='card-title'> 
+                        <img src='{{ tmdb_image_url(movie.poster_path, "w185") }}'>
+                        {{ movie.title }} 
+                    </h4>
+                </div>
+                <div class='card-footer text-center'>
+                    <a href="{{ url_for('movie_details', movie_id=movie.id) }}" class ='btn btn-pirmary'> Pokaż więcej</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+    {% endblock %}
+</body>
+</html>
+
+
+
